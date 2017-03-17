@@ -40,18 +40,18 @@ func hotp(secret string, counter int64) []byte {
 		log.Fatal(err)
 	}
 
-    // ToUpper needed here for base32
+	// ToUpper needed here for base32
 	encoded := []byte(strings.ToUpper(secret))
 	decoded := make([]byte, 64)
 
-    var num_bytes int
+	var num_bytes int
 
 	num_bytes, err = hex.Decode(decoded, encoded)
 	if err != nil {
-	    num_bytes, err = base32.StdEncoding.Decode(decoded, encoded)
-        if err != nil {
-            log.Fatal("The secret must be hex or base32 encoded!")
-        }
+		num_bytes, err = base32.StdEncoding.Decode(decoded, encoded)
+		if err != nil {
+			log.Fatal("The secret must be hex or base32 encoded!")
+		}
 	}
 
 	mac_160 := hmac.New(sha1.New, decoded)
