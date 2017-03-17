@@ -23,6 +23,8 @@ Goathgen - A simple TOTP implementation written in Go.
         * Read C++ oathgen source code for full OATH functionality
         * https://github.com/w8rbt/oathgen
 
+    * TOTP requires precise system time so run NTP when using goathgen.
+
     * goathgen is statically linked and should run anywhere.
 
     * To build goathgen from source, run 'go build goathgen.go'
