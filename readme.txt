@@ -2,15 +2,13 @@ Goathgen - A simple TOTP implementation written in Go.
 
 # How to use goathgen with your encrypted TOTP secret
 
-    1. Obtain a hex encoded software TOTP secret.
-    2. Save the TOTP secret in a plain text file.
-    3. Encrypt the TOTP secret with your PGP key.
-    4. Securely delete the plaintext TOTP secret.
-    5. Pipe the decrypted TOTP secret to goathgen.
+    1. Obtain a hex or base32 encoded TOTP secret from your service provider.
+    2. Encrypt the TOTP secret with your PGP key and save the encrypted secret in a file.
+    3. To generate a one-time code, decrypt the TOTP secret and pipe the output to goathgen.
 
-# Example CLI usage
+# Example usage
 
-    gpg -d secret.pgp | goathgen
+    gpg -d encrypted-secret.txt | goathgen
 
 # Notes
 
@@ -20,9 +18,7 @@ Goathgen - A simple TOTP implementation written in Go.
         * Six digit codes
         * 30 second time step
 
-    * goathgen only works with hex encoded secrets.
-
-    * If you need other OATH functionality, edit the source.
+    * If you need other OATH functionality, edit the goathgen source code.
 
         * Read C++ oathgen source code for full OATH functionality
         * https://github.com/w8rbt/oathgen

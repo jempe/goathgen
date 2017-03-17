@@ -20,44 +20,52 @@ import "bufio"
 import "bytes"
 import "crypto/sha1"
 import "crypto/hmac"
+import "encoding/base32"
 import "encoding/binary"
 import "encoding/hex"
 import "fmt"
 import "log"
 import "os"
+import "strings"
 import "time"
 
 var debug bool = false
 
 func hotp(secret string, counter int64) []byte {
-	// The secret must be hex encoded!
+	// The secret must be hex or base32 encoded!
 
 	buf := new(bytes.Buffer)
-	er1 := binary.Write(buf, binary.BigEndian, counter)
-	if er1 != nil {
-		log.Fatal(er1)
+	err := binary.Write(buf, binary.BigEndian, counter)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	hex_encoded := []byte(secret)
-	hex_decoded := make([]byte, hex.DecodedLen(len(hex_encoded)))
+    // ToUpper needed here for base32
+	encoded := []byte(strings.ToUpper(secret))
+	decoded := make([]byte, 64)
 
-	num_bytes, er2 := hex.Decode(hex_decoded, hex_encoded)
-	if er2 != nil {
-		log.Fatal("The secret must be hex encoded!")
+    var num_bytes int
+
+	num_bytes, err = hex.Decode(decoded, encoded)
+	if err != nil {
+	    num_bytes, err = base32.StdEncoding.Decode(decoded, encoded)
+        if err != nil {
+            log.Fatal("The secret must be hex or base32 encoded!")
+        }
 	}
 
-	mac_160 := hmac.New(sha1.New, hex_decoded)
+	mac_160 := hmac.New(sha1.New, decoded)
 	mac_160.Write(buf.Bytes())
 
 	if debug {
 		fmt.Println("----- hotp -----")
 		fmt.Printf("counter: %d\n", counter)
-		fmt.Printf("hex_encoded secret: %s\n", secret)
-		fmt.Printf("hex_encoded array: %v\n", hex_encoded)
-		fmt.Printf("hex_encoded len: %v\n", len(hex_encoded))
-		fmt.Printf("hex_decoded array: %v\n", hex_decoded)
-		fmt.Printf("hex_decoded len: %v\n", len(hex_decoded))
-		fmt.Printf("hex_decoded secret: %s\n", hex_decoded[:num_bytes])
+		fmt.Printf("encoded secret: %s\n", secret)
+		fmt.Printf("encoded array: %v\n", encoded)
+		fmt.Printf("encoded len: %v\n", len(encoded))
+		fmt.Printf("decoded array: %v\n", decoded)
+		fmt.Printf("decoded len: %v\n", len(decoded))
+		fmt.Printf("decoded secret: %s\n", decoded[:num_bytes])
 		fmt.Printf("mac_160: %v\n", mac_160.Sum(nil))
 		fmt.Printf("mac_160 len: %v\n", mac_160.Size())
 		fmt.Println("----- hotp -----")
@@ -67,7 +75,7 @@ func hotp(secret string, counter int64) []byte {
 }
 
 func totp(secret string, time_now int64, time_step int64, unix_epoch int64) []byte {
-	// The secret must be hex encoded!
+	// The secret must be hex or base32 encoded!
 
 	var time_counter int64
 	time_counter = (time_now - unix_epoch) / time_step
