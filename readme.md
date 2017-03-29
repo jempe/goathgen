@@ -12,6 +12,7 @@ A simple TOTP command line implementation written in Go.
 
 ```bash
 gpg -d encrypted-secret.txt | goathgen
+cat plaintext-secret.txt | goathgen
 ```
 
 ## Installation via Go
