@@ -5,21 +5,21 @@ A simple TOTP command line implementation written in Go.
 ## Usage
 
 ```bash
-gpg -d encrypted-secret.txt | goathgen
-cat plaintext-secret.txt | goathgen
+$ gpg -d encrypted-secret.txt | goathgen
+$ cat plaintext-secret.txt | goathgen
 ```
 
 ## Installation via Go
 
 ```bash
-go get github.com/w8rbt/goathgen
+$ go get github.com/w8rbt/goathgen
 ```
 
 ## Installation via Source
 
 ```bash
-go build goathgen.go
-sudo mv goathgen /usr/local/bin
+$ go build goathgen.go
+$ sudo mv goathgen /usr/local/bin
 ```
 
 ## Notes
@@ -33,7 +33,7 @@ sudo mv goathgen /usr/local/bin
     * Six digit codes
     * 30 second time step
 3. If you need other OATH functionality, edit the goathgen source code.
-    * Read C++ oathgen source code for full OATH functionality
+    * Read the C++ oathgen source code for full OATH functionality
     * https://github.com/w8rbt/oathgen
 4. Run NTP when using goathgen.
 
