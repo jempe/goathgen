@@ -10,7 +10,6 @@ Goathgen - A simple TOTP implementation written in Go.
 
     gpg -d encrypted-secret.txt | goathgen
 
-
 # Installation via Go
 
     go get github.com/w8rbt/goathgen
