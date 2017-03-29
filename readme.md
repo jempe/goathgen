@@ -23,16 +23,16 @@ go get github.com/w8rbt/goathgen
 ```bash
 go build goathgen.go
 sudo mv goathgen /usr/local/bin
-````
+```
 
 ## Notes
 
 1. goathgen only works in TOTP mode using the TOTP defaults
-..* HMAC-SHA1
-..* Six digit codes
-..* 30 second time step
+  * HMAC-SHA1
+  * Six digit codes
+  * 30 second time step
 2. If you need other OATH functionality, edit the goathgen source code.
-..* Read C++ oathgen source code for full OATH functionality
-..* https://github.com/w8rbt/oathgen
+  * Read C++ oathgen source code for full OATH functionality
+  * https://github.com/w8rbt/oathgen
 3. TOTP requires precise system time so run NTP when using goathgen.
 
