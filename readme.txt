@@ -10,6 +10,16 @@ Goathgen - A simple TOTP implementation written in Go.
 
     gpg -d encrypted-secret.txt | goathgen
 
+
+# Installation via Go
+
+    go get github.com/w8rbt/goathgen
+
+# Installation via Source
+
+    go build goathgen.go
+    sudo mv goathgen /usr/local/bin
+
 # Notes
 
     * goathgen only works in TOTP mode using the TOTP defaults
@@ -24,10 +34,4 @@ Goathgen - A simple TOTP implementation written in Go.
         * https://github.com/w8rbt/oathgen
 
     * TOTP requires precise system time so run NTP when using goathgen.
-
-    * goathgen is statically linked and should run anywhere.
-
-    * To build goathgen from source, run 'go build goathgen.go'
-
-        * https://github.com/w8rbt/goathgen
 
