@@ -34,6 +34,8 @@ var totp string = ""
  *
  * Tests 1 through 6 are from Appendix B of RFC 6238
  * Others tests are in addition to that.
+ *
+ * https://tools.ietf.org/html/rfc6238
  */
 
 // Test 1
