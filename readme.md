@@ -30,11 +30,13 @@ Read main.go to see a simple example
 ## To run unit tests against the library
 ```bash
 $ go test -v
+    or
+$ go test
 ```
 
 ## Notes
 
-1. To use goathgen with an encrypted TOTP secret
+1. To use the goathgen executable with an encrypted TOTP secret
     * Obtain a hex or base32 encoded TOTP secret from your service provider.
     * Encrypt the TOTP secret with your PGP key and save the encrypted secret in a file.
     * Decrypt the TOTP secret and pipe the output to goathgen.

@@ -32,11 +32,11 @@ var totp string = ""
  * TestXa and TestXb test the Base32 encoded secret
  * TestXc and TestXd test the Hex encoded secret
  *
- * Tests 1 through 6 are from the Appendex B of RFC 6238
+ * Tests 1 through 6 are from Appendix B of RFC 6238
  * Others tests are in addition to that.
  */
 
-// ---------
+// Test 1
 
 func Test1a(t *testing.T) {
 	bincode = 1094287082
@@ -71,7 +71,7 @@ func Test1d(t *testing.T) {
 	}
 }
 
-// ---------
+// Test 2
 
 func Test2a(t *testing.T) {
 	bincode = 907081804
@@ -106,7 +106,7 @@ func Test2d(t *testing.T) {
 	}
 }
 
-// ---------
+// Test 3
 
 func Test3a(t *testing.T) {
 	bincode = 414050471
@@ -141,7 +141,7 @@ func Test3d(t *testing.T) {
 	}
 }
 
-// ---------
+// Test 4
 
 func Test4a(t *testing.T) {
 	bincode = 689005924
@@ -176,7 +176,7 @@ func Test4d(t *testing.T) {
 	}
 }
 
-// ---------
+// Test 5
 
 func Test5a(t *testing.T) {
 	bincode = 2069279037
@@ -211,7 +211,7 @@ func Test5d(t *testing.T) {
 	}
 }
 
-// ---------
+// Test 6
 
 func Test6a(t *testing.T) {
 	bincode = 1465353130
