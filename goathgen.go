@@ -28,7 +28,7 @@ import "strings"
 
 var Debug bool = false
 
-func hotp(secret string, counter int64) []byte {
+func Hotp(secret string, counter int64) []byte {
 	// The secret must be hex or base32 encoded!
 
 	buf := new(bytes.Buffer)
@@ -71,7 +71,7 @@ func hotp(secret string, counter int64) []byte {
 	return mac_160.Sum(nil)
 }
 
-func totp(secret string, time_now int64, time_step int64, unix_epoch int64) []byte {
+func Totp(secret string, time_now int64, time_step int64, unix_epoch int64) []byte {
 	// The secret must be hex or base32 encoded!
 
 	var time_counter int64
@@ -86,10 +86,10 @@ func totp(secret string, time_now int64, time_step int64, unix_epoch int64) []by
 		fmt.Println("----- totp -----")
 	}
 
-	return hotp(secret, time_counter)
+	return Hotp(secret, time_counter)
 }
 
-func to_binary(hmac []byte) int {
+func ToBinary(hmac []byte) int {
 	offset := hmac[len(hmac)-1] & 0xf
 
 	bincode := int(((int(hmac[offset]) & 0x7f) << 24) |
@@ -108,7 +108,7 @@ func to_binary(hmac []byte) int {
 	return bincode
 }
 
-func truncate(bincode int) int {
+func Truncate(bincode int) int {
 	modulo_by := 1000000
 
 	otp := bincode % modulo_by
