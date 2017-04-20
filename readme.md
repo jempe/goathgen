@@ -1,8 +1,8 @@
 # goathgen
 
-A simple TOTP library and command line client written in Go.
+A simple TOTP library and command line executable written in Go.
 
-## Command Line Client Usage
+## Executable usage examples
 
 ```bash
 $ gpg -d encrypted-secret.txt | goathgen
@@ -15,11 +15,16 @@ $ cat plaintext-secret.txt | goathgen
 $ go get github.com/w8rbt/goathgen
 ```
 
-## To build and install the goathgen executable
+## To build and install the executable
 
 ```bash
 $ cd main && go build -o goathgen
 $ sudo mv goathgen /usr/local/bin
+```
+
+## To use the library in your go program
+```bash
+Read main.go to see a simple example
 ```
 
 ## To run unit tests against the library
