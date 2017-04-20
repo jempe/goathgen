@@ -2,7 +2,7 @@
 
 A simple TOTP library and command line client written in Go.
 
-## Usage
+## Command Line Client Usage
 
 ```bash
 $ gpg -d encrypted-secret.txt | goathgen
