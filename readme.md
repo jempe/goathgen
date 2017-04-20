@@ -15,11 +15,16 @@ $ cat plaintext-secret.txt | goathgen
 $ go get github.com/w8rbt/goathgen
 ```
 
-## Installation via Source
+## To build and install executable
 
 ```bash
 $ cd main && go build -o goathgen
 $ sudo mv goathgen /usr/local/bin
+```
+
+## To run unit tests on library
+```bash
+$ go test -v
 ```
 
 ## Notes
