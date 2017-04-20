@@ -1,6 +1,6 @@
 # goathgen
 
-A simple TOTP command line client written in Go.
+A simple TOTP library and command line client written in Go.
 
 ## Usage
 
