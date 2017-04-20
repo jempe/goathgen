@@ -18,7 +18,7 @@ $ go get github.com/w8rbt/goathgen
 ## Installation via Source
 
 ```bash
-$ go build goathgen.go
+$ cd main && go build -o goathgen
 $ sudo mv goathgen /usr/local/bin
 ```
 
