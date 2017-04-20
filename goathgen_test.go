@@ -19,8 +19,14 @@ package goathgen_test
 import "testing"
 import "github.com/w8rbt/goathgen"
 
-func TestHotp(t *testing.T) {
+func TestHotpB32(t *testing.T) {
 	if goathgen.ToBinary(goathgen.Hotp("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", 0)) != 1284755224 {
+		t.Error("Expected 1284755224")
+	}
+}
+
+func TestHotpHex(t *testing.T) {
+	if goathgen.ToBinary(goathgen.Hotp("3132333435363738393031323334353637383930", 0)) != 1284755224 {
 		t.Error("Expected 1284755224")
 	}
 }
