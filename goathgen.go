@@ -14,9 +14,8 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package main
+package goathgen
 
-import "bufio"
 import "bytes"
 import "crypto/sha1"
 import "crypto/hmac"
@@ -25,9 +24,7 @@ import "encoding/binary"
 import "encoding/hex"
 import "fmt"
 import "log"
-import "os"
 import "strings"
-import "time"
 
 var debug bool = false
 
@@ -127,30 +124,3 @@ func truncate(bincode int) int {
 	return otp
 }
 
-func main() {
-
-	// Secret must be sent by stdin
-	stdin := bufio.NewScanner(os.Stdin)
-	stdin.Scan()
-
-	now := time.Now()
-	unix_now := now.Unix()
-
-	var unix_epoch int64
-	unix_epoch = 0
-
-	var time_step int64
-	time_step = 30
-
-	if debug {
-		fmt.Println("----- main -----")
-		fmt.Printf("stdin %s\n", stdin.Text())
-		fmt.Printf("unix_now: %d\n", unix_now)
-		fmt.Printf("unix_epoch: %d\n", unix_epoch)
-		fmt.Printf("time_step: %d\n", time_step)
-		fmt.Println("----- main -----")
-	}
-
-	the_totp := truncate(to_binary(totp(stdin.Text(), unix_now, time_step, unix_epoch)))
-	fmt.Printf("%06d\n", the_totp)
-}
