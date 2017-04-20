@@ -123,4 +123,3 @@ func Truncate(bincode int) int {
 
 	return otp
 }
-
