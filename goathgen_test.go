@@ -30,3 +30,5 @@ func TestHotpHex(t *testing.T) {
 		t.Error("Expected 1284755224")
 	}
 }
+
+// Many more tests to come later
