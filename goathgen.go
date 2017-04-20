@@ -90,6 +90,7 @@ func Totp(secret string, time_now int64, time_step int64, unix_epoch int64) []by
 }
 
 func ToBinary(hmac []byte) int {
+	// Returns bincode as an integer
 	offset := hmac[len(hmac)-1] & 0xf
 
 	bincode := int(((int(hmac[offset]) & 0x7f) << 24) |
@@ -109,6 +110,7 @@ func ToBinary(hmac []byte) int {
 }
 
 func Truncate(bincode int) int {
+	// Returns truncated bincode as an integer
 	modulo_by := 1000000
 
 	otp := bincode % modulo_by

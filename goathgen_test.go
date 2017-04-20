@@ -16,19 +16,38 @@
 
 package goathgen_test
 
+import "fmt"
 import "testing"
 import "github.com/w8rbt/goathgen"
 
-func TestHotpB32(t *testing.T) {
-	if goathgen.ToBinary(goathgen.Hotp("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", 0)) != 1284755224 {
-		t.Error("Expected 1284755224")
+func Test1(t *testing.T) {
+	binary_value := goathgen.ToBinary(goathgen.Totp("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", 59, 30, 0))
+	if binary_value != 1094287082 {
+		t.Error("Expected bincode 1094287082, got", binary_value)
 	}
 }
 
-func TestHotpHex(t *testing.T) {
-	if goathgen.ToBinary(goathgen.Hotp("3132333435363738393031323334353637383930", 0)) != 1284755224 {
-		t.Error("Expected 1284755224")
+func Test2(t *testing.T) {
+	truncated_value := goathgen.Truncate(goathgen.ToBinary(goathgen.Totp("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", 59, 30, 0)))
+	final_value := fmt.Sprintf("%06d", truncated_value)
+	if final_value != "287082" {
+		t.Error("Expected OTP 287082, got", final_value)
 	}
 }
 
-// Many more tests to come later
+// ---------
+
+func Test3(t *testing.T) {
+	binary_value := goathgen.ToBinary(goathgen.Totp("3132333435363738393031323334353637383930", 1111111109, 30, 0))
+	if binary_value != 907081804 {
+		t.Error("Expected bincode 907081804, got", binary_value)
+	}
+}
+
+func Test4(t *testing.T) {
+	truncated_value := goathgen.Truncate(goathgen.ToBinary(goathgen.Totp("3132333435363738393031323334353637383930", 1111111109, 30, 0)))
+	final_value := fmt.Sprintf("%06d", truncated_value)
+	if final_value != "081804" {
+		t.Error("Expected OTP 081804, got", final_value)
+	}
+}
