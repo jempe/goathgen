@@ -26,7 +26,7 @@ import "fmt"
 import "log"
 import "strings"
 
-var debug bool = false
+var Debug bool = false
 
 func hotp(secret string, counter int64) []byte {
 	// The secret must be hex or base32 encoded!
@@ -54,7 +54,7 @@ func hotp(secret string, counter int64) []byte {
 	mac_160 := hmac.New(sha1.New, decoded)
 	mac_160.Write(buf.Bytes())
 
-	if debug {
+	if Debug {
 		fmt.Println("----- hotp -----")
 		fmt.Printf("counter: %d\n", counter)
 		fmt.Printf("encoded secret: %s\n", secret)
@@ -77,7 +77,7 @@ func totp(secret string, time_now int64, time_step int64, unix_epoch int64) []by
 	var time_counter int64
 	time_counter = (time_now - unix_epoch) / time_step
 
-	if debug {
+	if Debug {
 		fmt.Println("----- totp -----")
 		fmt.Printf("time_now: %d\n", time_now)
 		fmt.Printf("time_step: %d\n", time_step)
@@ -97,7 +97,7 @@ func to_binary(hmac []byte) int {
 		((int(hmac[offset+2]) & 0xff) << 8) |
 		((int(hmac[offset+3]) & 0xff) << 0))
 
-	if debug {
+	if Debug {
 		fmt.Println("----- to_binary -----")
 		fmt.Printf("len: %d\n", len(hmac))
 		fmt.Printf("offset: %d\n", offset)
@@ -113,7 +113,7 @@ func truncate(bincode int) int {
 
 	otp := bincode % modulo_by
 
-	if debug {
+	if Debug {
 		fmt.Println("--- truncate ---")
 		fmt.Printf("bincode: %d\n", bincode)
 		fmt.Printf("modulo by: %d\n", modulo_by)
