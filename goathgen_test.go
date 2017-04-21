@@ -22,7 +22,9 @@ import "github.com/w8rbt/goathgen"
 
 var b32_secret string = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ"
 var bincode int = 0
+var counter int64 = 0
 var hex_secret string = "3132333435363738393031323334353637383930"
+var hotp string = ""
 var seconds int64 = 0
 var time_step int64 = 30
 var unix_epoch int64 = 0
@@ -33,9 +35,10 @@ var totp string = ""
  * TestXc and TestXd test the Hex encoded secret
  *
  * Tests 1 through 6 are from Appendix B of RFC 6238
- * Others tests are in addition to that.
+ *     https://tools.ietf.org/html/rfc6238
  *
- * https://tools.ietf.org/html/rfc6238
+ * Tests 7 through 27 are from Appendix C of RFC 4226
+ *     https://www.ietf.org/rfc/rfc4226.txt
  */
 
 // Test 1
@@ -248,4 +251,107 @@ func Test6d(t *testing.T) {
 	}
 }
 
-// More tests to come soon
+// Test 7
+
+func Test7a(t *testing.T) {
+	bincode = 1284755224
+	counter = 0
+	hotp = "755224"
+	binary_value := goathgen.ToBinary(goathgen.Hotp(b32_secret, counter))
+	if binary_value != bincode {
+		t.Error("Expected bincode", bincode, "got", binary_value)
+	}
+}
+
+func Test7b(t *testing.T) {
+	truncated_value := goathgen.Truncate(goathgen.ToBinary(goathgen.Hotp(b32_secret, counter)))
+	final_value := fmt.Sprintf("%06d", truncated_value)
+	if final_value != hotp {
+		t.Error("Expected hotp", hotp, "got", final_value)
+	}
+}
+
+func Test7c(t *testing.T) {
+	binary_value := goathgen.ToBinary(goathgen.Hotp(hex_secret, counter))
+	if binary_value != bincode {
+		t.Error("Expected bincode", bincode, "got", binary_value)
+	}
+}
+
+func Test7d(t *testing.T) {
+	truncated_value := goathgen.Truncate(goathgen.ToBinary(goathgen.Hotp(hex_secret, counter)))
+	final_value := fmt.Sprintf("%06d", truncated_value)
+	if final_value != hotp {
+		t.Error("Expected hotp", hotp, "got", final_value)
+	}
+}
+
+// Test 8
+
+func Test8a(t *testing.T) {
+	bincode = 1094287082
+	counter = 1
+	hotp = "287082"
+	binary_value := goathgen.ToBinary(goathgen.Hotp(b32_secret, counter))
+	if binary_value != bincode {
+		t.Error("Expected bincode", bincode, "got", binary_value)
+	}
+}
+
+func Test8b(t *testing.T) {
+	truncated_value := goathgen.Truncate(goathgen.ToBinary(goathgen.Hotp(b32_secret, counter)))
+	final_value := fmt.Sprintf("%06d", truncated_value)
+	if final_value != hotp {
+		t.Error("Expected hotp", hotp, "got", final_value)
+	}
+}
+
+func Test8c(t *testing.T) {
+	binary_value := goathgen.ToBinary(goathgen.Hotp(hex_secret, counter))
+	if binary_value != bincode {
+		t.Error("Expected bincode", bincode, "got", binary_value)
+	}
+}
+
+func Test8d(t *testing.T) {
+	truncated_value := goathgen.Truncate(goathgen.ToBinary(goathgen.Hotp(hex_secret, counter)))
+	final_value := fmt.Sprintf("%06d", truncated_value)
+	if final_value != hotp {
+		t.Error("Expected hotp", hotp, "got", final_value)
+	}
+}
+
+// Test 9
+
+func Test9a(t *testing.T) {
+	bincode = 137359152
+	counter = 2
+	hotp = "359152"
+	binary_value := goathgen.ToBinary(goathgen.Hotp(b32_secret, counter))
+	if binary_value != bincode {
+		t.Error("Expected bincode", bincode, "got", binary_value)
+	}
+}
+
+func Test9b(t *testing.T) {
+	truncated_value := goathgen.Truncate(goathgen.ToBinary(goathgen.Hotp(b32_secret, counter)))
+	final_value := fmt.Sprintf("%06d", truncated_value)
+	if final_value != hotp {
+		t.Error("Expected hotp", hotp, "got", final_value)
+	}
+}
+
+func Test9c(t *testing.T) {
+	binary_value := goathgen.ToBinary(goathgen.Hotp(hex_secret, counter))
+	if binary_value != bincode {
+		t.Error("Expected bincode", bincode, "got", binary_value)
+	}
+}
+
+func Test9d(t *testing.T) {
+	truncated_value := goathgen.Truncate(goathgen.ToBinary(goathgen.Hotp(hex_secret, counter)))
+	final_value := fmt.Sprintf("%06d", truncated_value)
+	if final_value != hotp {
+		t.Error("Expected hotp", hotp, "got", final_value)
+	}
+}
