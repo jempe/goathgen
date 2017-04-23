@@ -48,5 +48,5 @@ func main() {
 	}
 
 	theTotp := goathgen.Truncate(goathgen.ToBinary(goathgen.Totp(stdin.Text(), unixNow, timeStep, unixEpoch)))
-	fmt.Printf("%06d\n", the_totp)
+	fmt.Printf("%06d\n", theTotp)
 }
