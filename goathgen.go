@@ -26,10 +26,11 @@ import "fmt"
 import "log"
 import "strings"
 
-var Debug bool = false
+// Debug - Set to true to see verbose debug information
+var Debug = false
 
+// Hotp - calculate hotp per RFC 4226
 func Hotp(secret string, counter int64) []byte {
-	// The secret must be hex or base32 encoded!
 
 	buf := new(bytes.Buffer)
 	err := binary.Write(buf, binary.BigEndian, counter)
@@ -41,18 +42,18 @@ func Hotp(secret string, counter int64) []byte {
 	encoded := []byte(strings.ToUpper(secret))
 	decoded := make([]byte, 64)
 
-	var num_bytes int
+	var numBytes int
 
-	num_bytes, err = hex.Decode(decoded, encoded)
+	numBytes, err = hex.Decode(decoded, encoded)
 	if err != nil {
-		num_bytes, err = base32.StdEncoding.Decode(decoded, encoded)
+		numBytes, err = base32.StdEncoding.Decode(decoded, encoded)
 		if err != nil {
 			log.Fatal("The secret must be hex or base32 encoded!")
 		}
 	}
 
-	mac_160 := hmac.New(sha1.New, decoded)
-	mac_160.Write(buf.Bytes())
+	mac160 := hmac.New(sha1.New, decoded)
+	mac160.Write(buf.Bytes())
 
 	if Debug {
 		fmt.Println("----- hotp -----")
@@ -62,35 +63,35 @@ func Hotp(secret string, counter int64) []byte {
 		fmt.Printf("encoded len: %v\n", len(encoded))
 		fmt.Printf("decoded array: %v\n", decoded)
 		fmt.Printf("decoded len: %v\n", len(decoded))
-		fmt.Printf("decoded secret: %s\n", decoded[:num_bytes])
-		fmt.Printf("mac_160: %v\n", mac_160.Sum(nil))
-		fmt.Printf("mac_160 len: %v\n", mac_160.Size())
+		fmt.Printf("decoded secret: %s\n", decoded[:numBytes])
+		fmt.Printf("mac160: %v\n", mac160.Sum(nil))
+		fmt.Printf("mac160 len: %v\n", mac160.Size())
 		fmt.Println("----- hotp -----")
 	}
 
-	return mac_160.Sum(nil)
+	return mac160.Sum(nil)
 }
 
-func Totp(secret string, time_now int64, time_step int64, unix_epoch int64) []byte {
-	// The secret must be hex or base32 encoded!
+// Totp - calculate totp per rfx 6238
+func Totp(secret string, timeNow int64, timeStep int64, unixEpoch int64) []byte {
 
-	var time_counter int64
-	time_counter = (time_now - unix_epoch) / time_step
+	var timeCounter int64
+	timeCounter = (timeNow - unixEpoch) / timeStep
 
 	if Debug {
 		fmt.Println("----- totp -----")
-		fmt.Printf("time_now: %d\n", time_now)
-		fmt.Printf("time_step: %d\n", time_step)
-		fmt.Printf("unix_epoch: %d\n", unix_epoch)
-		fmt.Printf("time_counter: %d\n", time_counter)
+		fmt.Printf("timeNow: %d\n", timeNow)
+		fmt.Printf("timeStep: %d\n", timeStep)
+		fmt.Printf("unixEpoch: %d\n", unixEpoch)
+		fmt.Printf("timeCounter: %d\n", timeCounter)
 		fmt.Println("----- totp -----")
 	}
 
-	return Hotp(secret, time_counter)
+	return Hotp(secret, timeCounter)
 }
 
+// ToBinary - return bincode as an integer
 func ToBinary(hmac []byte) int {
-	// Returns bincode as an integer
 	offset := hmac[len(hmac)-1] & 0xf
 
 	bincode := int(((int(hmac[offset]) & 0x7f) << 24) |
@@ -109,16 +110,16 @@ func ToBinary(hmac []byte) int {
 	return bincode
 }
 
+// Truncate - return truncated bincode as an integer
 func Truncate(bincode int) int {
-	// Returns truncated bincode as an integer
-	modulo_by := 1000000
+	moduloBy := 1000000
 
-	otp := bincode % modulo_by
+	otp := bincode % moduloBy
 
 	if Debug {
 		fmt.Println("--- truncate ---")
 		fmt.Printf("bincode: %d\n", bincode)
-		fmt.Printf("modulo by: %d\n", modulo_by)
+		fmt.Printf("modulo by: %d\n", moduloBy)
 		fmt.Printf("otp: %d\n", otp)
 		fmt.Println("--- truncate ---")
 	}

@@ -30,23 +30,23 @@ func main() {
 	stdin.Scan()
 
 	now := time.Now()
-	unix_now := now.Unix()
+	unixNow := now.Unix()
 
-	var unix_epoch int64
-	unix_epoch = 0
+	var unixEpoch int64
+	unixEpoch = 0
 
-	var time_step int64
-	time_step = 30
+	var timeStep int64
+	timeStep = 30
 
 	if goathgen.Debug {
 		fmt.Println("----- main -----")
 		fmt.Printf("stdin %s\n", stdin.Text())
-		fmt.Printf("unix_now: %d\n", unix_now)
-		fmt.Printf("unix_epoch: %d\n", unix_epoch)
-		fmt.Printf("time_step: %d\n", time_step)
+		fmt.Printf("unixNow: %d\n", unixNow)
+		fmt.Printf("unixEpoch: %d\n", unixEpoch)
+		fmt.Printf("timeStep: %d\n", timeStep)
 		fmt.Println("----- main -----")
 	}
 
-	the_totp := goathgen.Truncate(goathgen.ToBinary(goathgen.Totp(stdin.Text(), unix_now, time_step, unix_epoch)))
+	theTotp := goathgen.Truncate(goathgen.ToBinary(goathgen.Totp(stdin.Text(), unixNow, timeStep, unixEpoch)))
 	fmt.Printf("%06d\n", the_totp)
 }
