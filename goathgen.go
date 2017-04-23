@@ -14,6 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+// Package goathgen provides simple Totp functionality per RFC 6238.
 package goathgen
 
 import "bytes"
@@ -26,10 +27,10 @@ import "fmt"
 import "log"
 import "strings"
 
-// Debug - Set to true to see verbose debug information
+// Debug - Set this variable to true to see verbose debug information.
 var Debug = false
 
-// Hotp - calculate hotp per RFC 4226
+// Hotp - Calculate and return hotp as byte slice per RFC 4226.
 func Hotp(secret string, counter int64) []byte {
 
 	buf := new(bytes.Buffer)
@@ -72,7 +73,7 @@ func Hotp(secret string, counter int64) []byte {
 	return mac160.Sum(nil)
 }
 
-// Totp - calculate totp per rfx 6238
+// Totp - Calculate and return totp as byte slice per rfc 6238.
 func Totp(secret string, timeNow int64, timeStep int64, unixEpoch int64) []byte {
 
 	var timeCounter int64
@@ -90,7 +91,7 @@ func Totp(secret string, timeNow int64, timeStep int64, unixEpoch int64) []byte 
 	return Hotp(secret, timeCounter)
 }
 
-// ToBinary - return bincode as an integer
+// ToBinary - Return bincode as an integer.
 func ToBinary(hmac []byte) int {
 	offset := hmac[len(hmac)-1] & 0xf
 
@@ -110,7 +111,7 @@ func ToBinary(hmac []byte) int {
 	return bincode
 }
 
-// Truncate - return truncated bincode as an integer
+// Truncate - Return truncated bincode as an integer.
 func Truncate(bincode int) int {
 	moduloBy := 1000000
 
