@@ -41,7 +41,7 @@ $ go test
 1. To use the goathgen executable with a PGP encrypted TOTP secret
     * Obtain a hex or base32 encoded TOTP secret from your service provider.
     * Encrypt the TOTP secret with your PGP key and save the encrypted secret in a file.
-    * Securely delete and overwrite the plaintext TOTP secret.
+    * Securely delete and overwrite the plain-text TOTP secret.
     * Decrypt the TOTP secret and pipe the output to goathgen.
 2. goathgen only works in TOTP mode using the TOTP defaults
     * HMAC-SHA1
