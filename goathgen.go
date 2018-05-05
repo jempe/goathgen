@@ -27,10 +27,10 @@ import "fmt"
 import "log"
 import "strings"
 
-// Debug - Set this variable to true to see verbose debug information.
+// Debug should be set to true to see verbose debug information.
 var Debug = false
 
-// Hotp - Calculate and return hotp as byte slice per RFC 4226.
+// Hotp calculates and returns the hotp as a byte slice per RFC 4226.
 func Hotp(secret string, counter int64) []byte {
 
 	buf := new(bytes.Buffer)
@@ -73,7 +73,7 @@ func Hotp(secret string, counter int64) []byte {
 	return mac160.Sum(nil)
 }
 
-// Totp - Calculate and return totp as byte slice per rfc 6238.
+// Totp calculates and returns the totp as a byte slice per rfc 6238.
 func Totp(secret string, timeNow int64, timeStep int64, unixEpoch int64) []byte {
 
 	var timeCounter int64
@@ -91,7 +91,7 @@ func Totp(secret string, timeNow int64, timeStep int64, unixEpoch int64) []byte 
 	return Hotp(secret, timeCounter)
 }
 
-// ToBinary - Return bincode as an integer.
+// ToBinary returns the bincode as an integer.
 func ToBinary(hmac []byte) int {
 	offset := hmac[len(hmac)-1] & 0xf
 
@@ -111,7 +111,7 @@ func ToBinary(hmac []byte) int {
 	return bincode
 }
 
-// Truncate - Return truncated bincode as an integer.
+// Truncate returns the truncated bincode as an integer.
 func Truncate(bincode int) int {
 	moduloBy := 1000000
 
