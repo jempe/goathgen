@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/w8rbt/goathgen.svg?branch=master)](https://travis-ci.org/w8rbt/goathgen)
+> This program was originally created by Richard Tilley and was available at github.com/w8rbt/goathgen. Since that repository is no longer available, all URLs have been updated to point to the jempe organization.
 
 # goathgen
 
@@ -14,7 +14,7 @@ $ cat plaintext-secret.txt | goathgen
 ## Installation via Go
 
 ```bash
-$ go get github.com/w8rbt/goathgen
+$ go get github.com/jempe/goathgen
 ```
 
 ## To build and install the executable
@@ -49,6 +49,5 @@ $ go test
     * 30 second time step
 3. If you need other OATH functionality, edit the goathgen source code.
     * Read the C++ oathgen source code for full OATH functionality
-    * https://github.com/w8rbt/oathgen
+    * https://github.com/jempe/oathgen
 4. Run NTP when using goathgen.
-
